@@ -12,7 +12,18 @@ function AnswerDetails(props) {
       <p>
         {props.body}
         <br />
-        By {props.author.full_name}
+        {/* 
+          Using the "style" prop on a base HTML component
+          will modify in the style attribute (inline styles.)
+        */}
+        <small
+          style={{
+            color: "red",
+            fontStyle: "italic"
+          }}
+        >
+          By {props.author.full_name}
+        </small>
         <br />
         <small>Answered {props.created_at}</small>
       </p>
