@@ -1,0 +1,12 @@
+install react globally:
+npm i -g create-react-app
+
+create new react app
+create-react-app awesome-answers-react
+cd into the new directory:
+cd awesome-answers-react/
+
+run the server:
+npm start
+
+git repo already created and 1st commit created automatically
