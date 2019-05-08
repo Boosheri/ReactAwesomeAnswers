@@ -10,28 +10,30 @@ import * as serviceWorker from "./serviceWorker";
 // Your React component's names must be in PascalCase. Those whose
 // names do not begin with an upper case letter will interpreted
 // as plain HTML tag.
-function AnswerDetails() {
+function AnswerDetails(props) {
   return (
     <div>
       <p>
-        Red. <br />
-        By Ulises Wisozk <br />
-        <small>Answered 2 days ago</small>
+        {props.title} <br />
+				By {props.author && props.author.full_name} <br />
+				<small>Created at {props.created_at}</small>
       </p>
     </div>
   );
 }
 
-function QuestionDetails() {
+function QuestionDetails(props) {
   return (
     <div>
-      <h2>What is your favourite color?</h2>
+      <h2>{props.title}</h2>
       <p>
-        Red, green, blue, magenta, etc. <br />
-        By Bridge Troll
+        {props.body}
+        <br />
+        By { props.author.full_name }
       </p>
       <p>
-        <small>Seen 10 time(s)</small> â <small>Created 10 days ago</small>
+        <small>Seen {props.view_count} time(s)</small> -{" "}
+        <small>Created at {props.created_at}</small>
       </p>
     </div>
   );
@@ -43,8 +45,18 @@ function QuestionDetails() {
 function QuestionShowPage() {
   return (
     <main>
-      <QuestionDetails />
-      <AnswerDetails />
+      <QuestionDetails
+        title="What's your favourite colour?"
+        body="Red, green, blue, seafoam green, turquoise, etc."
+        author={{ full_name: "Bridge Troll" }}
+        view_count={100}
+        created_at={new Date().toLocaleString()}
+      />
+      <AnswerDetails 
+        title="Red."
+				author={{ full_name: "Ulises Wisozk" }}
+				created_at={new Date().toLocaleString()}
+			/>
     </main>
   );
 }
