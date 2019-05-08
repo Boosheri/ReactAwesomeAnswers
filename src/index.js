@@ -37,19 +37,30 @@ function QuestionDetails() {
   );
 }
 
+// To structure our application, we will create components
+// that simulate the pages of web application. These are meant
+// to replace the various pages rendered by the routes of our rails server.
+function QuestionShowPage() {
+  return (
+    <main>
+      <QuestionDetails />
+      <AnswerDetails />
+    </main>
+  );
+}
+
 // In React application, we create a component that acts as the
 // "root" or the entry point to all of our other components.
 // This is the one that should be rendered `ReactDOM.render()`
 function App() {
-    return (
-      <div>
-        <QuestionDetails />
-        <AnswerDetails />
-      </div>
-    );
-  }
-  
-ReactDOM.render(<AnswerDetails />, document.getElementById("root"));
+  return (
+    <div>
+      <QuestionShowPage />
+    </div>
+  );
+}
+
+ReactDOM.render(<App />, document.getElementById("root"));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
