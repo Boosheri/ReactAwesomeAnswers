@@ -37,6 +37,18 @@ function QuestionDetails() {
   );
 }
 
+// In React application, we create a component that acts as the
+// "root" or the entry point to all of our other components.
+// This is the one that should be rendered `ReactDOM.render()`
+function App() {
+    return (
+      <div>
+        <QuestionDetails />
+        <AnswerDetails />
+      </div>
+    );
+  }
+  
 ReactDOM.render(<AnswerDetails />, document.getElementById("root"));
 
 // If you want your app to work offline and load faster, you can change
