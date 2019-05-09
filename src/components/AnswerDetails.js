@@ -22,7 +22,7 @@ function AnswerDetails(props) {
             fontStyle: "italic"
           }}
         >
-          By {props.author.full_name}
+          By {props.author.first_name}
         </small>
         <br />
         <small>Answered {props.created_at}</small>

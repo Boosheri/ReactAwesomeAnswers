@@ -14,7 +14,7 @@ export function QuestionDetails(props) {
         By {props.author && props.author.full_name}
       </p>
       <p>
-        <small>Seen {props.view_count} time(s)</small> â{" "}
+        <small>Seen {props.view_count} time(s)</small> {"- "}
         <small>Created at {props.created_at}</small>
       </p>
     </div>
