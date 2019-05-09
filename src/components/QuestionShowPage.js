@@ -9,18 +9,23 @@ import questionData from "../questionData";
 // that simulate the pages of web application. These are meant
 // to replace the various pages rendered by the routes of our rails server.
 export class QuestionShowPage extends Component {
+  constructor(props) {
+    // When using a constructor in a class-based
+    // component, you must call the `Component` class'
+    // constructor with `super` passing it the `props`.
+    super(props);
+
+    this.state = {
+      question: questionData
+    };
+  }
+
   render() {
     return (
       <main className="Page">
-        <QuestionDetails
-          title="What's your favourite colour?"
-          body="Red, green, blue, seafoam green, turquoise, etc."
-          author={{ full_name: "Bridge Troll" }}
-          view_count={100}
-          created_at={new Date().toLocaleString()}
-        />
+        <QuestionDetails {...this.state.question} />
         <h2>Answers</h2>
-        <AnswerList answers={questionData.answers} />
+        <AnswerList answers={this.state.question.answers} />
       </main>
     );
   }
