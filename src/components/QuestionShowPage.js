@@ -20,10 +20,25 @@ export class QuestionShowPage extends Component {
     };
   }
 
+  deleteQuestion() {
+    this.setState({
+      question: null
+    });
+  }
+
   render() {
+    if (!this.state.question) {
+      return (
+        <main className="Page">
+          <h2>Question doesn't exist!</h2>
+        </main>
+      );
+    }
+
     return (
       <main className="Page">
         <QuestionDetails {...this.state.question} />
+        <button onClick={() => this.deleteQuestion()}>Delete</button>
         <h2>Answers</h2>
         <AnswerList answers={this.state.question.answers} />
       </main>
