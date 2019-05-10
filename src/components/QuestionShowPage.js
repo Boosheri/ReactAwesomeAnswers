@@ -21,7 +21,13 @@ export class QuestionShowPage extends Component {
   }
 
   componentDidMount() {
-    Question.one(1004).then(question => {
+    // Components rendered by the <Route> component
+    // are passed three props: history, location and match.
+
+    // `match` holds a property that contains a URL's params.
+    const id = this.props.match.params.id;
+
+    Question.one(id).then(question => {
       this.setState({
         // question: question
         // ð syntax sugar for ð

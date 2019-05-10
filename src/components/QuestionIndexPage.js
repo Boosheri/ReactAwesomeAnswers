@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import { Question } from "../api/question";
 
 export class QuestionIndexPage extends Component {
@@ -38,7 +39,8 @@ export class QuestionIndexPage extends Component {
         >
           {this.state.questions.map(question => (
             <li key={question.id}>
-              <a href="">{question.title}</a> <br />
+              <Link to={`/questions/${question.id}`}>{question.title}</Link>{" "}
+              <br />
               {/* buttonNode.addEventListener("click", event => ...) */}
               <button onClick={() => this.deleteQuestion(question.id)}>
                 Delete
