@@ -1,7 +1,8 @@
 import React from "react";
-import { BrowserRouter, Route } from "react-router-dom";
-import { QuestionShowPage } from "./QuestionShowPage";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { QuestionIndexPage } from "./QuestionIndexPage";
+import { QuestionNewPage } from "./QuestionNewPage";
+import { QuestionShowPage } from "./QuestionShowPage";
 import { WelcomePage } from "./WelcomePage";
 import { NavBar } from "./NavBar";
 
@@ -15,9 +16,17 @@ function App() {
         <header>
           <NavBar />
         </header>
-        <Route exact path="/" component={WelcomePage} />
-        <Route exact path="/questions" component={QuestionIndexPage} />
-        <Route path="/questions/:id" component={QuestionShowPage} />
+        {/* 
+          <Route> components inside <Switch> behave differently.
+          The first one that matches the URL path is the only
+          one that is rendered and the remaining ones are ignored.
+        */}
+        <Switch>
+          <Route exact path="/" component={WelcomePage} />
+          <Route exact path="/questions" component={QuestionIndexPage} />
+          <Route exact path="/questions/new" component={QuestionNewPage} />
+          <Route path="/questions/:id" component={QuestionShowPage} />
+        </Switch>
       </div>
     </BrowserRouter>
   );

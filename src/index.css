@@ -17,9 +17,15 @@ main.Page {
 }
 
 .NavBar {
+  width: 100%;
   display: flex;
+
   background-color: teal;
   color: white;
+}
+
+.NavBar > *:first-child {
+  margin-right: auto;
 }
 
 .NavBar > * {
@@ -27,7 +33,6 @@ main.Page {
 }
 
 .NavBar a {
-  width: 100%;
   color: inherit;
   text-decoration: none;
   font-weight: 100;
