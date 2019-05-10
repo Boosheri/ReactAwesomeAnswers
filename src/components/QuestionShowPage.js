@@ -4,6 +4,7 @@ import { AnswerList } from "./AnswerList";
 import { QuestionDetails } from "./QuestionDetails";
 
 import questionData from "../questionData";
+import { Question } from "../api/question";
 
 // To structure our application, we will create components
 // that simulate the pages of web application. These are meant

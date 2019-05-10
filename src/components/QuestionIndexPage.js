@@ -1,13 +1,15 @@
 import React, { Component } from "react";
-import data from "../questionsData";
+import { Question } from "../api/question";
 
 export class QuestionIndexPage extends Component {
-  constructor(props) {
-    super(props);
+  state = {
+    questions: []
+  };
 
-    this.state = {
-      questions: data
-    };
+  componentDidMount() {
+    Question.all().then(questions => {
+      this.setState({ questions });
+    });
   }
 
   deleteQuestion(id) {
@@ -18,6 +20,7 @@ export class QuestionIndexPage extends Component {
     // in the current state.
     // This happens asynchronously and will eventually trigger an update
     // to the DOM if there's any change.
+
     this.setState({
       questions: this.state.questions.filter(q => q.id !== id)
     });
