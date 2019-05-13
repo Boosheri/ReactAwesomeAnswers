@@ -16,12 +16,27 @@ class App extends Component {
     this.state = {
       currentUser: null,
     };
-    this.signInUser = this.signInUser.bind(this);
+    // this.signInUser = this.signInUser.bind(this);
   }
 
-  signInUser(user) {
+  // When creating a method that uses the keyword this, sometimes you need to be careful
+  // `this` will lose its context when it is "destructured" from its object
+  // What we mean by that is when we pass it as a prop to another component
+  // like this:
+  // <SignInPage onSignIn={this.signInUser} />
+  // In the example above, the method is passed as a value to the onSignIn prop of
+  // the SignInPage Component.
+  // When that function is called within SignInPage, the keyword `this` will have
+  // forgotten its context, meaning `this` is undefined
+  // You will commonly see an error that says something like:
+  // Cannot call function `setState` of undefined
+  // In order to address this, you need to make sure that the keyword `this` is bound
+  // within the method
+  // To do that we can either bind it in the constructor using the `.bind` method
+  // Or defined our method like we did below using an arrow function
+  signInUser = (user) => {
     this.setState({ currentUser: user });
-  }
+  };
 
   render() {
     return (
