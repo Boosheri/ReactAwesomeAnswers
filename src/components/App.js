@@ -6,6 +6,7 @@ import { QuestionShowPage } from './QuestionShowPage';
 import { WelcomePage } from './WelcomePage';
 import { NavBar } from './NavBar';
 import { SignInPage } from './SignInPage';
+import { SignUpPage } from './SignUpPage';
 import { User } from '../api/user';
 import { AuthRoute } from './AuthRoute';
 
@@ -83,6 +84,11 @@ class App extends Component {
               // Make sure to pass those props on to your component in addition to you
               // specific props
               render={(routeProps) => <SignInPage {...routeProps} onSignIn={this.getCurrentUser} />}
+            />
+            <Route
+              exact
+              path="/sign_up"
+              render={(routeProps) => <SignUpPage {...routeProps} onSignUp={this.getCurrentUser} />}
             />
             <Route exact path="/questions" component={QuestionIndexPage} />
             <AuthRoute
