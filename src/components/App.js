@@ -7,6 +7,7 @@ import { WelcomePage } from './WelcomePage';
 import { NavBar } from './NavBar';
 import { SignInPage } from './SignInPage';
 import { User } from '../api/user';
+import { AuthRoute } from './AuthRoute';
 
 // In React application, we create a component that acts as the
 // "root" or the entry point to all of our other components.
@@ -84,8 +85,18 @@ class App extends Component {
               render={(routeProps) => <SignInPage {...routeProps} onSignIn={this.getCurrentUser} />}
             />
             <Route exact path="/questions" component={QuestionIndexPage} />
-            <Route exact path="/questions/new" component={QuestionNewPage} />
-            <Route path="/questions/:id" component={QuestionShowPage} />
+            <AuthRoute
+              // The !! turns something from "truthy" or "falsy" to true  or false respectively
+              isAuthenticated={!!this.state.currentUser}
+              exact
+              path="/questions/new"
+              component={QuestionNewPage}
+            />
+            <AuthRoute
+              isAuthenticated={!!this.state.currentUser}
+              path="/questions/:id"
+              component={QuestionShowPage}
+            />
           </Switch>
         </div>
       </BrowserRouter>
