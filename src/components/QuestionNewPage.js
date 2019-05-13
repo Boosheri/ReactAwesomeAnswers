@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import { Question } from "../api/question";
-import { Session } from "../api/session";
+import React, { Component } from 'react';
+import { Question } from '../api/question';
+import { Session } from '../api/session';
 
 export class QuestionNewPage extends Component {
   createQuestion(event) {
@@ -8,32 +8,26 @@ export class QuestionNewPage extends Component {
     const { currentTarget } = event;
     const formData = new FormData(currentTarget);
 
-    Session.create({
-      email: "js@winterfell.gov",
-      password: "supersecret"
+    Question.create({
+      title: formData.get('title'),
+      body: formData.get('body'),
     })
-      .then(() =>
-        Question.create({
-          title: formData.get("title"),
-          body: formData.get("body")
-        })
-      )
-      .then(data => {
-        if (!data.errors) {
-          // The `history` prop is provide by the <Route>
-          // component. It has a bunch of methods to manipulate
-          // browser. You can use `push` to direct a user to any
-          // page in our app.
-          this.props.history.push(`/questions/${data.id}`);
-        }
-      });
+    .then((data) => {
+      if (!data.errors) {
+        // The `history` prop is provide by the <Route>
+        // component. It has a bunch of methods to manipulate
+        // browser. You can use `push` to direct a user to any
+        // page in our app.
+        this.props.history.push(`/questions/${data.id}`);
+      }
+    });
   }
 
   render() {
     return (
       <main className="Page">
         <h1>Ask a Question</h1>
-        <form onSubmit={event => this.createQuestion(event)}>
+        <form onSubmit={(event) => this.createQuestion(event)}>
           <div>
             <label htmlFor="title">Title</label> <br />
             <input name="title" id="title" />

@@ -6,6 +6,7 @@ import { QuestionShowPage } from './QuestionShowPage';
 import { WelcomePage } from './WelcomePage';
 import { NavBar } from './NavBar';
 import { SignInPage } from './SignInPage';
+import { User } from '../api/user';
 
 // In React application, we create a component that acts as the
 // "root" or the entry point to all of our other components.
@@ -19,11 +20,16 @@ class App extends Component {
     // this.signInUser = this.signInUser.bind(this);
   }
 
+  componentDidMount() {
+    // When our app starts, fetch the current user if there is one
+    this.getCurrentUser();
+  }
+
   // When creating a method that uses the keyword this, sometimes you need to be careful
   // `this` will lose its context when it is "destructured" from its object
   // What we mean by that is when we pass it as a prop to another component
   // like this:
-  // <SignInPage onSignIn={this.signInUser} />
+  // <SignInPage onSignIn={this.getCurrentUser} />
   // In the example above, the method is passed as a value to the onSignIn prop of
   // the SignInPage Component.
   // When that function is called within SignInPage, the keyword `this` will have
@@ -34,8 +40,20 @@ class App extends Component {
   // within the method
   // To do that we can either bind it in the constructor using the `.bind` method
   // Or defined our method like we did below using an arrow function
-  signInUser = (user) => {
-    this.setState({ currentUser: user });
+  getCurrentUser = () => {
+    return User.current().then((user) => {
+      if (user.id) {
+        this.setState({ currentUser: user });
+      }
+    });
+  };
+
+  signOut = () => {
+    // This method removes the current user from the react app, effectively
+    // signing out the user
+    this.setState({
+      currentUser: null,
+    });
   };
 
   render() {
@@ -43,7 +61,7 @@ class App extends Component {
       <BrowserRouter>
         <div>
           <header>
-            <NavBar />
+            <NavBar currentUser={this.state.currentUser} onSignOut={this.signOut} />
           </header>
           {/* 
             <Route> components inside <Switch> behave differently.
@@ -63,7 +81,7 @@ class App extends Component {
               // the arguments to that function is an object representing all of the route props
               // Make sure to pass those props on to your component in addition to you
               // specific props
-              render={(routeProps) => <SignInPage {...routeProps} onSignIn={this.signInUser} />}
+              render={(routeProps) => <SignInPage {...routeProps} onSignIn={this.getCurrentUser} />}
             />
             <Route exact path="/questions" component={QuestionIndexPage} />
             <Route exact path="/questions/new" component={QuestionNewPage} />
