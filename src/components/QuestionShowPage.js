@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import { AnswerDetails } from "./AnswerDetails";
 import { AnswerList } from "./AnswerList";
 import { QuestionDetails } from "./QuestionDetails";
@@ -63,7 +64,12 @@ export class QuestionShowPage extends Component {
     return (
       <main className="Page">
         <QuestionDetails {...this.state.question} />
-        <button onClick={() => this.deleteQuestion()}>Delete</button>
+
+        <div>
+          <Link to={`/questions/${this.state.question.id}/edit`}>Edit</Link>
+          <button onClick={() => this.deleteQuestion()}>Delete</button>
+        </div>
+
         <h2>Answers</h2>
         <AnswerList
           onAnswerDeleteClick={id => this.deleteAnswer(id)}

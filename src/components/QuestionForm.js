@@ -2,7 +2,7 @@ import React from "react";
 import { FormErrors } from "./FormErrors";
 
 export const QuestionForm = props => {
-  const { errors = [] } = props;
+  const { data = {}, errors = [] } = props;
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -22,13 +22,19 @@ export const QuestionForm = props => {
       <div>
         <label htmlFor="title">Title</label> <br />
         <FormErrors forField="title" errors={errors} />
-        <input name="title" id="title" />
+        <input name="title" id="title" defaultValue={data.title} />
       </div>
 
       <div>
         <label htmlFor="body">Body</label> <br />
         <FormErrors forField="body" errors={errors} />
-        <textarea name="body" id="body" cols="60" rows="4" />
+        <textarea
+          name="body"
+          id="body"
+          cols="60"
+          rows="4"
+          defaultValue={data.body}
+        />
       </div>
 
       <div>
