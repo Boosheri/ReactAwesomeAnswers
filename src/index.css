@@ -49,3 +49,9 @@ main.Page {
   background-color: slategrey;
   color: white;
 }
+
+.FormErrors {
+  color: red;
+  padding-left: 1.2em;
+  margin: 0;
+}

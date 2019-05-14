@@ -37,16 +37,18 @@ export class QuestionNewPage extends Component {
       <main className="Page">
         <h1>Ask a Question</h1>
 
-        <FormErrors errors={this.state.errors} />
+        {/* <FormErrors errors={this.state.errors} /> */}
 
         <form onSubmit={event => this.createQuestion(event)}>
           <div>
             <label htmlFor="title">Title</label> <br />
+            <FormErrors forField="title" errors={this.state.errors} />
             <input name="title" id="title" />
           </div>
 
           <div>
             <label htmlFor="body">Body</label> <br />
+            <FormErrors forField="body" errors={this.state.errors} />
             <textarea name="body" id="body" cols="60" rows="4" />
           </div>
 
