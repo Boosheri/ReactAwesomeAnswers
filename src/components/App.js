@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import { QuestionIndexPage } from './QuestionIndexPage';
-import { QuestionNewPage } from './QuestionNewPage';
-import { QuestionShowPage } from './QuestionShowPage';
-import { WelcomePage } from './WelcomePage';
-import { NavBar } from './NavBar';
-import { SignInPage } from './SignInPage';
-import { SignUpPage } from './SignUpPage';
-import { User } from '../api/user';
-import { AuthRoute } from './AuthRoute';
+import React, { Component } from "react";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { QuestionIndexPage } from "./QuestionIndexPage";
+import { QuestionNewPage } from "./QuestionNewPage";
+import { QuestionShowPage } from "./QuestionShowPage";
+import { WelcomePage } from "./WelcomePage";
+import { NavBar } from "./NavBar";
+import { SignInPage } from "./SignInPage";
+import { SignUpPage } from "./SignUpPage";
+import { User } from "../api/user";
+import { AuthRoute } from "./AuthRoute";
 
 // In React application, we create a component that acts as the
 // "root" or the entry point to all of our other components.
@@ -18,6 +18,7 @@ class App extends Component {
     super(props);
     this.state = {
       currentUser: null,
+      loading: true
     };
     // this.signInUser = this.signInUser.bind(this);
   }
@@ -43,27 +44,38 @@ class App extends Component {
   // To do that we can either bind it in the constructor using the `.bind` method
   // Or defined our method like we did below using an arrow function
   getCurrentUser = () => {
-    return User.current().then((user) => {
-      if (user.id) {
-        this.setState({ currentUser: user });
-      }
-    });
+    return User.current()
+      .then(user => {
+        if (user.id) {
+          this.setState({ currentUser: user, loading: false });
+        }
+      })
+      .catch(err => {
+        this.setState({ loading: false });
+      });
   };
 
   signOut = () => {
     // This method removes the current user from the react app, effectively
     // signing out the user
     this.setState({
-      currentUser: null,
+      currentUser: null
     });
   };
 
   render() {
+    if (this.state.loading) {
+      return <div />;
+    }
+
     return (
       <BrowserRouter>
         <div>
           <header>
-            <NavBar currentUser={this.state.currentUser} onSignOut={this.signOut} />
+            <NavBar
+              currentUser={this.state.currentUser}
+              onSignOut={this.signOut}
+            />
           </header>
           {/* 
             <Route> components inside <Switch> behave differently.
@@ -83,12 +95,16 @@ class App extends Component {
               // the arguments to that function is an object representing all of the route props
               // Make sure to pass those props on to your component in addition to you
               // specific props
-              render={(routeProps) => <SignInPage {...routeProps} onSignIn={this.getCurrentUser} />}
+              render={routeProps => (
+                <SignInPage {...routeProps} onSignIn={this.getCurrentUser} />
+              )}
             />
             <Route
               exact
               path="/sign_up"
-              render={(routeProps) => <SignUpPage {...routeProps} onSignUp={this.getCurrentUser} />}
+              render={routeProps => (
+                <SignUpPage {...routeProps} onSignUp={this.getCurrentUser} />
+              )}
             />
             <Route exact path="/questions" component={QuestionIndexPage} />
             <AuthRoute
