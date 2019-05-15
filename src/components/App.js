@@ -48,8 +48,9 @@ class App extends Component {
     return User.current()
       .then(user => {
         if (user.id) {
-          this.setState({ currentUser: user, loading: false });
+          this.setState({ currentUser: user });
         }
+        this.setState({ loading: false });
       })
       .catch(err => {
         this.setState({ loading: false });
