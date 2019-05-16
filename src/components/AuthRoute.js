@@ -28,12 +28,12 @@ export const AuthRoute = (props) => {
 };
 
 // Destructuring example
-const object = {
-  name: 'Max',
-  age: 77,
-};
+// const object = {
+//   name: 'Max',
+//   age: 77,
+// };
 
-const { name: firstName, age } = object;
+// const { name: firstName, age } = object;
 // now I have a variable called firstName, and NOT a variable called name
 // name === undefined
 // firstName === 'Max'

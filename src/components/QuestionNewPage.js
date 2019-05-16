@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import { Question } from "../api/question";
-import { Session } from "../api/session";
-import { FormErrors } from "./FormErrors";
 import { QuestionForm } from "./QuestionForm";
 
 export class QuestionNewPage extends Component {

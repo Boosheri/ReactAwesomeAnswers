@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import { AnswerDetails } from "./AnswerDetails";
 import { AnswerList } from "./AnswerList";
 import { QuestionDetails } from "./QuestionDetails";
 import { Question } from "../api/question";
