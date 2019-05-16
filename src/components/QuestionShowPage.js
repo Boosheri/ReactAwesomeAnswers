@@ -4,6 +4,7 @@ import { AnswerDetails } from "./AnswerDetails";
 import { AnswerList } from "./AnswerList";
 import { QuestionDetails } from "./QuestionDetails";
 import { Question } from "../api/question";
+import { PrimaryButton } from "office-ui-fabric-react/lib/Button";
 
 // To structure our application, we will create components
 // that simulate the pages of web application. These are meant
@@ -37,11 +38,18 @@ export class QuestionShowPage extends Component {
     });
   }
 
-  deleteQuestion() {
-    this.setState({
-      question: null
-    });
-  }
+  // deleteQuestion() { <-- Prototype method
+  // Above is much more efficient, use it whenever possible
+  deleteQuestion = () => {
+    // <-- Instance method (Method on `this`)
+    // This is for less efficient, only use when the method must
+    // be passed as a callback and `this` is needed.
+    if (window.confirm("Are you sure?")) {
+      Question.delete(this.state.question.id).then(data => {
+        this.props.history.push(`/questions`);
+      });
+    }
+  };
 
   deleteAnswer(id) {
     this.setState({
@@ -66,8 +74,22 @@ export class QuestionShowPage extends Component {
         <QuestionDetails {...this.state.question} />
 
         <div>
-          <Link to={`/questions/${this.state.question.id}/edit`}>Edit</Link>
-          <button onClick={() => this.deleteQuestion()}>Delete</button>
+          {/* <Link to={`/questions/${this.state.question.id}/edit`}>Edit</Link> */}
+          <PrimaryButton
+            text="Edit"
+            iconProps={{ iconName: "edit" }}
+            onClick={() =>
+              this.props.history.push(
+                `/questions/${this.state.question.id}/edit`
+              )
+            }
+          />
+
+          <PrimaryButton
+            text="Delete"
+            iconProps={{ iconName: "delete" }}
+            onClick={this.deleteQuestion}
+          />
         </div>
 
         <h2>Answers</h2>
