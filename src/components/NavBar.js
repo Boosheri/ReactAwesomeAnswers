@@ -1,17 +1,33 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
-import { Clock } from './Clock';
-import { Session } from '../api/session';
+import React from "react"
+import { NavLink } from "react-router-dom"
+import { Persona } from "office-ui-fabric-react/lib/Persona"
+import { Clock } from "./Clock"
+import { Session } from "../api/session"
 
 export function NavBar(props) {
-  // console.log('NavBar props.currentUser', props.currentUser);
-  const { currentUser, onSignOut } = props;
-  function handleSignout() {
+  const { currentUser, onSignOut } = props
+  function handleSignout(event) {
+    event.preventDefault()
+
     Session.destroy().then(() => {
       // ... do something after we destroy session
-      onSignOut();
-    });
+      onSignOut()
+    })
   }
+
+  const avatarUrl =
+    currentUser && currentUser.avatars && currentUser.avatars.length > 0
+      ? currentUser.avatars[currentUser.avatars.length - 1].url
+      : undefined
+
+  let initials
+
+  if (currentUser) {
+    initials =
+      currentUser.first_name[0].toUpperCase() +
+      currentUser.last_name[0].toUpperCase()
+  }
+
   return (
     <nav className="NavBar">
       <Clock />
@@ -30,11 +46,16 @@ export function NavBar(props) {
           And so you don't need to have an arbitrary html element in your NavBar
           The short form for <React.Fragment></React.Fragment> is <></>
         */}
-          <span>{currentUser.full_name}</span>
           <NavLink exact to="/questions/new">
             Ask
           </NavLink>
-          <span onClick={handleSignout}>Sign Out</span>
+
+          <a onClick={handleSignout}>Sign Out</a>
+
+          <NavLink exact to={`/users/${currentUser.id}/edit`}>
+            {currentUser.full_name}
+          </NavLink>
+          <Persona imageUrl={avatarUrl} imageInitials={initials} />
         </React.Fragment>
       ) : (
         <>
@@ -47,5 +68,5 @@ export function NavBar(props) {
         </>
       )}
     </nav>
-  );
+  )
 }
